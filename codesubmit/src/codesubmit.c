@@ -43,6 +43,7 @@ static GtkWidget *submit_button;
 static GtkWidget *save_button;
 
 
+/*the function which repastes the fields of the plugin with old data for each use*/
 void spoj_preferences_load_doit(void)
 {
 gchar doc_fn[30],user_ent[30],pwd_ent[30],probid_ent[30];
@@ -128,7 +129,8 @@ int active_choice;
 		* to extend it to include other languages like JAVA etc.*/
 	
 		GString *expression=g_string_new("python ");
-		g_string_append(expression,g_build_path(G_DIR_SEPARATOR_S, geany->app->configdir, "plugins","y.py", NULL);
+		g_string_append
+		(expression,g_build_path(G_DIR_SEPARATOR_S, geany->app->configdir, "plugins","y.py", NULL);
 		g_string_append(expression," ");
 		g_string_append(expression,user_ent);
 		g_string_append(expression," ");
@@ -191,12 +193,12 @@ static void menu_item_activate_cb(GtkMenuItem *menuitem, gpointer gdata)
 	gtk_window_set_title (GTK_WINDOW (window), "CodeSubmit Plugin");
 
     
-    /*Creating the labels*/ 
+	 /*Creating the labels*/ 
 	GtkWidget *user_label = gtk_label_new ("User Name : ");
-    GtkWidget *pwd_label= gtk_label_new ("Password : ");
-    GtkWidget *probid_label= gtk_label_new ("Problem Id : ");
-    GtkWidget *server_label= gtk_label_new ("Server : ");
-    GtkWidget *language_label= gtk_label_new ("Language : ");
+	GtkWidget *pwd_label= gtk_label_new ("Password : ");
+	GtkWidget *probid_label= gtk_label_new ("Problem Id : ");
+	GtkWidget *server_label= gtk_label_new ("Server : ");
+	GtkWidget *language_label= gtk_label_new ("Language : ");
     
 	/*Creating user entries*/
 	user_entry=gtk_entry_new();
@@ -212,13 +214,13 @@ static void menu_item_activate_cb(GtkMenuItem *menuitem, gpointer gdata)
 	server_box=gtk_combo_box_new_text();
 	gtk_combo_box_append_text(GTK_COMBO_BOX(server_box),"SPOJ");
 	gtk_combo_box_append_text(GTK_COMBO_BOX(server_box),"CodeChef");
-	
+
 	/*Creating the buttons*/
 	submit_button=gtk_button_new_with_label ("Submit!");
 	save_button=gtk_button_new_with_label ("Save!");
     
-    /*creating the table*/	
-	GtkWidget *	table=gtk_table_new (2, 2, TRUE);
+	/*creating the table*/	
+	GtkWidget *table=gtk_table_new (2, 2, TRUE);
 	gtk_table_attach_defaults (GTK_TABLE(table),user_label, 0, 1, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE(table),user_entry, 1, 2, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE(table),pwd_label, 0, 1, 1, 2);
@@ -231,9 +233,9 @@ static void menu_item_activate_cb(GtkMenuItem *menuitem, gpointer gdata)
 	gtk_table_attach_defaults (GTK_TABLE(table),language_box, 1, 2, 4, 5);
 	gtk_table_attach_defaults (GTK_TABLE(table),submit_button, 0, 1, 5, 6);
 	gtk_table_attach_defaults (GTK_TABLE(table),save_button, 1, 2, 5, 6);
-    gtk_container_add (GTK_CONTAINER (window), table);
+	gtk_container_add (GTK_CONTAINER (window), table);
     
-    /*connecting signals to the button and tools menu option*/
+	/*connecting signals to the button and tools menu option*/
 	g_signal_connect (submit_button, "clicked",G_CALLBACK (spoj_submit_online_doit),NULL);
 	g_signal_connect (save_button, "clicked",G_CALLBACK (spoj_save_doit),NULL);
    	spoj_preferences_load_doit();
@@ -247,17 +249,17 @@ static void menu_item_activate_cb(GtkMenuItem *menuitem, gpointer gdata)
 void plugin_init(GeanyData *data)
 {	
 
-    /*adding option in the Tools Menu*/
+	/*adding option in the Tools Menu*/
 	GtkWidget *demo_item;
-    tools_menu_item = gtk_menu_item_new_with_mnemonic(_("_CodeSubmit"));
-    gtk_widget_show(tools_menu_item);
-    gtk_container_add(GTK_CONTAINER(geany->main_widgets->tools_menu),tools_menu_item);
-    g_signal_connect(tools_menu_item, "activate",G_CALLBACK(menu_item_activate_cb), NULL);
-    ui_add_document_sensitive(tools_menu_item); 
+	tools_menu_item = gtk_menu_item_new_with_mnemonic(_("_CodeSubmit"));
+	gtk_widget_show(tools_menu_item);
+	gtk_container_add(GTK_CONTAINER(geany->main_widgets->tools_menu),tools_menu_item);
+	g_signal_connect(tools_menu_item, "activate",G_CALLBACK(menu_item_activate_cb), NULL);
+	ui_add_document_sensitive(tools_menu_item); 
 
 	/*naive way of generating the python script and saving it in config directory*/
-	
 	FILE *p=fopen(g_build_path(G_DIR_SEPARATOR_S, geany->app->configdir, "plugins","y.py", NULL),"w");
+	
 	/*encoding of the python script*/
 	fprintf(p,"import httplib\nimport urllib2\nimport re\nfrom poster.encode ");
 	fprintf(p,"import multipart_encode\nfrom poster.streaminghttp import register");
@@ -279,9 +281,9 @@ void plugin_init(GeanyData *data)
 	fprintf(p,"_section_start(weight=ignore) \",\"\")\ny=y.replace(\"google_ad_section_end\",\"\")\ny=y.");
 	fprintf(p,"replace(\"\\n\",\"\")\ny=y.replace(\"  		\",\"\")\ny=y.replace(\"  		    	\",\"\")\nprint y\n");
 	fclose(p);
+
 /*The actual python script
- * 
- * import httplib
+import httplib
 import urllib2
 import re#import error exception
 from poster.encode import multipart_encode#import error exception
@@ -289,7 +291,8 @@ from poster.streaminghttp import register_openers#import error exception
 import sys
 import BeautifulSoup#import error exception
 register_openers()
-datagen, headers = multipart_encode({'login_user':sys.argv[1],'password':sys.argv[2],"subm_file": open(sys.argv[3], "rb"),'lang':sys.argv[4],'problemcode':sys.argv[5]})
+datagen, headers = multipart_encode({'login_user':sys.argv[1],'password':sys.argv[2],
+"subm_file": open(sys.argv[3], "rb"),'lang':sys.argv[4],'problemcode':sys.argv[5]})
 url="http://www.spoj.com/submit/complete/"
 request = urllib2.Request(url, datagen, headers)
 #opening url exception
@@ -325,6 +328,5 @@ print y
 
 void plugin_cleanup(void)
 {	
-    gtk_widget_destroy(tools_menu_item);
-	
+	gtk_widget_destroy(tools_menu_item);
 }
