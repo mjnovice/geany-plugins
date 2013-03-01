@@ -279,7 +279,8 @@ void plugin_init(GeanyData *data)
 	fprintf(p,"str(mem)\nsoup = BeautifulSoup.BeautifulSoup(final)\ngy=\'\'\nfor node in soup.findAll");
 	fprintf(p,"(\'td\'):\n\tgy+=\'\'.join(node.findAll(text=True))\ny=str(gy)\ny=y.replace(\"google_ad");
 	fprintf(p,"_section_start(weight=ignore) \",\"\")\ny=y.replace(\"google_ad_section_end\",\"\")\ny=y.");
-	fprintf(p,"replace(\"\\n\",\"\")\ny=y.replace(\"  		\",\"\")\ny=y.replace(\"  		    	\",\"\")\nprint y\n");
+	fprintf(p,"replace(\"\\n\",\"\")\ny=y.replace(\"  		\",\"\")\ny=y.replace(\"  	");
+	fprintf(p,")\",\"\")\nprint y\n");
 	fclose(p);
 
 /*The actual python script
