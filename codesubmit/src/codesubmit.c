@@ -28,7 +28,8 @@ GeanyFunctions  *geany_functions;
 GeanyDocument   *soln_doc;
 PLUGIN_VERSION_CHECK(211)
 
-PLUGIN_SET_INFO("Online Code Submissions", "Tool to submit coding problem submissions from geany itself!",
+PLUGIN_SET_TRANSLATABLE_INFO(LOCALEDIR,GETTEXT_PACKAGE,"Online Code Submissions", 
+		"Tool to submit coding problem submissions from geany itself!",
                 "1.0", "Mayank Jha <mayank25080562@gmail.com>");
 
 static GtkWidget *window;
@@ -123,6 +124,7 @@ int active_choice;
 		case 1:{strcpy(lang,"41");break;}//c++
 		case 2:{strcpy(lang,"10");break;}//python
 		case 3:{strcpy(lang,"12");break;}//brainfuck
+		default:{strcpy(lang,"11");break;}//c is the most common language
 		};
     
 		/*presently built only for probids c,c++,python and brainfuck
